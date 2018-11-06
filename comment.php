@@ -71,9 +71,8 @@ if(isset($_SESSION["username"])){
                 document.getElementById("OthersComments").innerHTML = xmlhttp.responseText;
             }
         };
-        var ele = document.querySelector("option:checked");
 
-        print(ele.innerHTML);
+        var ele = document.querySelector("option:checked");
 
         xmlhttp.open("GET","comment_retrieve.php?filmName="+ele.innerHTML, true);
         xmlhttp.send();
