@@ -40,8 +40,8 @@ if(isset($_SESSION["username"])){
         print("</select></p>");
     }
 
-    print("<input type='submit' value='Confirm'>");
-    print("<input type='button' value='Cancel' onclick=\"location.href='buywelcome.php'\">");
+    print("<div><input type='submit' value='Confirm'>");
+    print("<input type='button' value='Cancel' onclick=\"location.href='buywelcome.php'\"></div>");
 
 }else{
     print("<h1>You have not logged in</h1>");

@@ -41,3 +41,24 @@ div{
     color:darkseagreen;
     font-weight:900;
 }
+
+@media screen and (min-width: 1800px) {
+
+    a[href='buywelcome.php']{
+        margin-right:55%;
+    }
+
+}
+
+@media screen and (max-width: 1799px) {
+    a[href='buywelcome.php']{
+        margin-right:40%;
+    }
+}
+
+
+@media screen and (max-width: 1299px) {
+    a[href='buywelcome.php']{
+        margin-right:23%;
+    }
+}

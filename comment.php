@@ -18,7 +18,6 @@ if(isset($_SESSION["username"])){
 
     $conn = mysqli_connect("sophia.cs.hku.hk", "xlai", "255511", "xlai")
     or die("MySQL connect error! " . mysqli_connect_error());
-
     $username = $_SESSION["username"];
     $query = "SELECT BroadCastId FROM Ticket WHERE UserId = '$username'";
     $result = mysqli_query($conn, $query) or die("MySQL Query Error! ".mysqli_error($conn));

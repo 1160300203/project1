@@ -1,4 +1,3 @@
-
 body{
     background:url("images/cinema.jpg") top center no-repeat;
     background-size:100%,100%;
@@ -12,11 +11,28 @@ a{
     color:darkturquoise;
 }
 
-a[href='buywelcome.php']{
-    margin-right:55%;
-}
-
 a:hover{
     background-color:coral;
     color:white;
+}
+
+@media screen and (min-width: 1800px) {
+
+    a[href='buywelcome.php']{
+        margin-right:55%;
+    }
+
+}
+
+@media screen and (max-width: 1799px) {
+    a[href='buywelcome.php']{
+        margin-right:40%;
+    }
+}
+
+
+@media screen and (max-width: 1299px) {
+    a[href='buywelcome.php']{
+        margin-right:23%;
+    }
 }
