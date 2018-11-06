@@ -57,6 +57,12 @@ input[type='button']{
 }
 
 
+div{
+    display:inline-block;
+    height:110%;
+}
+
+
 @media screen and (min-width: 1800px) {
 
     a[href='buywelcome.php']{
