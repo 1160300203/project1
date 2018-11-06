@@ -55,7 +55,9 @@ if(isset($_SESSION["username"])) {
             print("<h4>Category: " . $row["Category"] . "</h4>");
             print("<h4>Language: " . $row["Language"] . "</h4>");
 
-            $broadCastQuery = "SELECT * FROM BroadCast";
+
+            $filmId = $row["FilmId"];
+            $broadCastQuery = "SELECT * FROM BroadCast WHERE FilmId = $filmId";
             $broadCastResult = mysqli_query($conn, $broadCastQuery) or die("MySQL Query Error! ".mysqli_error($conn));
             if(mysqli_num_rows($broadCastResult)>0){
                 print("<form method='post' action='seatplantry.php'><select name='BroadCastId'>");

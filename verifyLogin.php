@@ -23,6 +23,8 @@ if($row[0] == $password){
     exit;
 }else{
     print("<h1>Invalid login, please login again.</h1>");
+    header("refresh:3; url='index.html'");
+    exit;
 }
 
 ?>
