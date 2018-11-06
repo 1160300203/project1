@@ -1,0 +1,61 @@
+
+body{
+    background:url("images/cinema.jpg") top center no-repeat;
+    background-size:cover;
+    color: powderblue;
+}
+
+
+a{
+    display: inline-block;
+    margin:1%;
+    font-size:200%;
+    text-decoration:none;
+    color:darkturquoise;
+}
+
+a[href='buywelcome.php']{
+    margin-right:55%;
+}
+
+a:hover{
+    background-color:coral;
+    color:white;
+}
+
+form{
+    display:inline-block;
+    position: relative;
+    left: 30%;
+    top: 10%;
+    font-size:200%;
+    color:cadetblue;
+    text-align:center;
+}
+
+select{
+    display: inline-block;
+    width:50%;
+    padding-top:0.3%;
+    font-size:80%;
+}
+
+textarea{
+    overflow: auto;
+    font-size: 60%;
+}
+
+textarea::-webkit-input-placeholder {  /* WebKit browsers */
+    font-size: 120%;
+}
+
+input{
+    width:30%;
+    padding:1%;
+    font-size:80%;
+}
+
+input[type='button']{
+    margin-top: 3%;
+    margin-right: 10%;
+}

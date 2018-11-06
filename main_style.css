@@ -1,0 +1,22 @@
+
+body{
+    background:url("images/cinema.jpg") top center no-repeat;
+    background-size:100%,100%;
+}
+
+a{
+    display: inline-block;
+    margin:1%;
+    font-size:200%;
+    text-decoration:none;
+    color:darkturquoise;
+}
+
+a[href='buywelcome.php']{
+    margin-right:55%;
+}
+
+a:hover{
+    background-color:coral;
+    color:white;
+}
