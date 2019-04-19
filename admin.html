@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<form method="post" action="admin.php">
+    <input type="hidden" name="type" value="add_film">
+    <p>FilmName: <input type="text" name="filmname" placeholder="Film Name"></p>
+    <p>Duration: <input type="text" name="duration" placeholder="Duration(mins)"></p>
+    <p>Category: <input type="text" name="category" placeholder="Category(Type Number)"></p>
+    <p>Language: <input type="text" name="language" placeholder="Language"></p>
+    <p>Director: <input type="text" name="director" placeholder="Director"></p>
+    <p id="add_film">Broadcasts:
+    </p>
+    <p><input type="button" onclick="addline('add_film')" value="Add one broadcast"></p>
+    <p><input type="submit" value="Insert Film and its Broadcasts"></p>
+</form>
+
+<form method="post" action="admin.php">
+    <input type="hidden" name="type" value="add_house">
+    <p>HouseRow: <input type="text" name="houserow" placeholder="Integer"></p>
+    <p>HouseCol: <input type="text" name="housecol" placeholder="Integer"></p>
+    <p><input type="submit" value="Insert House"></p>
+</form>
+
+<form method="post" action="admin.php">
+    <input type="hidden" name="type" value="del_film">
+    <p>FilmName: <input type="text" name="filmname" placeholder="FilmName"></p>
+    <p><input type="submit" value="Delete Film"></p>
+</form>
+<input type="button" value="Logout" onclick="location.href= 'logout.php'">
+
+<script>
+    function addline(id) {
+        var ele = document.getElementById(id);
+        var new_ele = document.createElement("p");
+        new_ele.innerHTML = "<p>Date: <input type=\"text\" name=\"dates[]\" placeholder=\"YYYY-MM-DD\"></p>";
+        new_ele.innerHTML += "<p>Time: <input type=\"text\" name=\"times[]\" placeholder=\"HH-MM-SS\"></p>";
+        new_ele.innerHTML += "<p>Houseid: <input type=\"text\" name=\"houseids[]\" placeholder=\"Integer\"></p>";
+        ele.appendChild(new_ele);
+    }
+</script>
+</body>
+
+</html>

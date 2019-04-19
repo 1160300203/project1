@@ -18,8 +18,8 @@ if($row[0] == $password){
     if(!isset($_SESSION['username'])){
         $_SESSION['username'] = $username;
     }
-    if($username == 'admin'){
-        header("Location: admin.php");
+    if($username == 0){
+        header("Location: admin.html");
     }
     else{
         header("Location: main.php");

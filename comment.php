@@ -14,6 +14,7 @@ if(isset($_SESSION["username"])){
         or die("MySQL connect error! " . mysqli_connect_error());
     $username = $_SESSION["username"];
     $query = "SELECT Film.Filmid, FilmName FROM HaveWatched JOIN Film ON HaveWatched.filmid = Film.Filmid AND userid = '$username'";
+
     $result = mysqli_query($conn, $query) or die("MySQL Query Error! ".mysqli_error($conn));
     $filmIds = array();
     $filmNames = array();
