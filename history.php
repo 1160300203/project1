@@ -1,13 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="history_style.css">
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-5
- * Time: 上午11:15
- */
-
 session_start();
 if(isset($_SESSION["username"])){
     print("<a href='buywelcome.php'> Buy A Ticket </a>");
@@ -19,38 +12,34 @@ if(isset($_SESSION["username"])){
     $username = $_SESSION["username"];
     print("<h3>Username: $username</h3>");
 
-    $conn = mysqli_connect("sophia.cs.hku.hk", "xlai", "255511", "xlai")
-    or die("MySQL connect error! " . mysqli_connect_error());
-    $ticketsQuery = "SELECT * FROM Ticket WHERE UserId = '$username' and Valid = true";
+    $conn = mysqli_connect($_SESSION["db_host"], $_SESSION["db_user"], $_SESSION["db_password"], $_SESSION["db_name"])
+        or die("MySQL connect error! " . mysqli_connect_error());
+    $ticketsQuery = "SELECT Ticketid, SeatNo, TicketType, TicketFee, Date, Time, FilmName, Duration, Language, Houseid FROM Ticket NATURAL JOIN BroadCast JOIN Film ON BroadCast.filmid = Film.Filmid AND userid = '$username'";
     $ticketsResult = mysqli_query($conn, $ticketsQuery) or die("MySQL Query Error! ".mysqli_error($conn));
 
     if(mysqli_num_rows($ticketsResult)>0){
         while($ticketRow = mysqli_fetch_array($ticketsResult)){
-            $ticketId = $ticketRow["TicketId"];
+            $ticketId = $ticketRow["Ticketid"];
             $seatNo = $ticketRow["SeatNo"];
-            $broadCastId = $ticketRow["BroadCastId"];
             $ticketFee = $ticketRow["TicketFee"];
             $ticketType = $ticketRow["TicketType"];
+            $date = $ticketRow["Date"]." ".$ticketRow["Time"];
+            $houseId = $ticketRow["Houseid"];
+            $filmName = $ticketRow["FilmName"];
+            $duration = $ticketRow["Duration"];
+            $language = $ticketRow["Language"];
 
-            $broadCastQuery = "SELECT * FROM BroadCast WHERE BroadCastId = $broadCastId";
-            $broadCastResult = mysqli_query($conn, $broadCastQuery) or die("MySQL Query Error! ".mysqli_error($conn));
-            $broadCast = mysqli_fetch_array($broadCastResult);
+            $type = 'Student or Child';
+            if($ticketType == 0){
+                $type = "Adult";
+            }
 
-            $date = $broadCast["Dates"]."(".$broadCast["day"].") ".$broadCast["Time"];
-            $houseId = $broadCast["HouseId"];
-            $filmId = $broadCast["FilmId"];
-
-            $filmQuery = "SELECT FilmName, Language, Duration FROM Film WHERE FilmId = $filmId";
-            $filmResult = mysqli_query($conn, $filmQuery) or die("MySQL Query Error! ".mysqli_error($conn));
-            $film = mysqli_fetch_array($filmResult);
-            $filmName = $film["FilmName"];
-            $duration = $film["Duration"];
-            $language = $film["Language"];
-
-            print("<div>TicketId:$ticketId $ticketFee($ticketType)</div>");
+            print("<div>TicketId:$ticketId</div>");
+            print("<div>TicketFee:$$ticketFee($type)</div>");
             print("<div>House:$houseId</div>");
             print("<div>Seat:$seatNo</div>");
-            print("<div>FilmName:$filmName $duration</div>");
+            print("<div>FilmName:$filmName</div>");
+            print("<div>Duration:$duration mins</div>");
             print("<div>Language:$language</div>");
             print("<div>Date: $date</div>");
             print("<hr>");
@@ -59,7 +48,7 @@ if(isset($_SESSION["username"])){
 
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 

@@ -5,23 +5,24 @@
     <link rel="stylesheet" type="text/css" href="createaccount_style.css">
 </head>
 <body>
-<form method="post" action="create.php" onsubmit="return validateForm()">
+<form method="post" action="admin.php">
     <p>FilmName: <input type="text" name="filmname" id="filmname" placeholder="Film Name"></p>
     <p>Duration: <input type="text" name="duration" id="duration" placeholder="Duration(mins)"></p>
     <p>Category: <input type="text" name="category" id="category" placeholder="Category(Type Number)"></p>
     <p>Language: <input type="text" name="language" id="language" placeholder="Language"></p>
     <p>Director: <input type="text" name="director" id="director" placeholder="Director"></p>
-
-    <p><input type="button" value="Back" onclick="location.href='index.html'" ></p>
-    <p><input type="submit" value="Sign Up"></p>
+    <p id="Broadcast">Broadcasts:
+        <p>Date: <input type="text" name="director" id="director" placeholder="Director"></p>
+    </p>
+    <p><input type="submit" value="Insert Film and its Broadcasts"></p>
 </form>
-<?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 19-4-19
- * Time: 下午5:06
- */
->
+<form method="post" action="admin.php">
+    <p>FilmName: <input type="text" name="filmname" id="filmname" placeholder="Film Name"></p>
+    <p>Duration: <input type="text" name="duration" id="duration" placeholder="Duration(mins)"></p>
+    <p>Category: <input type="text" name="category" id="category" placeholder="Category(Type Number)"></p>
+    <p>Language: <input type="text" name="language" id="language" placeholder="Language"></p>
+    <p>Director: <input type="text" name="director" id="director" placeholder="Director"></p>
+    <p><input type="submit" value="Insert Film"></p>
+</form>
 </body>
 </html>

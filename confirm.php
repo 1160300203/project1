@@ -1,12 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="confirm_style.css">
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-4
- * Time: 下午3:37
- */
 
 session_start();
 
@@ -24,11 +18,13 @@ if(isset($_SESSION["username"])){
     $seatsNum = count($seats);
     $ticketTypes = $_POST['TicketType'];
     $ticketTypesJsonStr = json_encode($ticketTypes);
+    $filmId = $filmInfo['FilmId'];
 
     print("<h1>Order information</h1>");
 
     print("<form method='post' action='buywelcome.php'>");
     print("<input type='hidden' name='SeatsJsonStr' value='$seatsJsonStr'>");
+    print("<input type='hidden' name='FilmId' value=$filmId>");
     print("<input type='hidden' name='BroadCastId' value=$broadCastId>");
     print("<input type='hidden' name='TicketTypesJsonStr' value=$ticketTypesJsonStr>");
 
@@ -50,6 +46,7 @@ if(isset($_SESSION["username"])){
             $fee += 50;
         }
         print("<tr><td>Ticket Fee: </td><td>".$ticketFee."</td></tr>");
+
     }
     print("</table>");
     print("<p id='fee'>Total Fee: $ ".$fee."</p>");
@@ -59,7 +56,7 @@ if(isset($_SESSION["username"])){
 
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 ?>

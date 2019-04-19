@@ -1,32 +1,20 @@
 <link rel="stylesheet" type="text/css" href="seatplantry.css">
 
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-4
- * Time: 上午10:39
- */
 
 session_start();
 if(isset($_SESSION["username"])){
-    $conn = mysqli_connect("sophia.cs.hku.hk", "xlai", "255511", "xlai")
+    $conn = mysqli_connect($_SESSION["db_host"], $_SESSION["db_user"], $_SESSION["db_password"], $_SESSION["db_name"])
     or die("MySQL connect error! " . mysqli_connect_error());
-    $broadCastId = $_POST["BroadCastId"];
-    $query = "SELECT * FROM BroadCast WHERE BroadCastId = '$broadCastId'";
-    $result = mysqli_query($conn, $query) or die("MySQL Query Error! ".mysqli_error($conn));
-    $row = mysqli_fetch_array($result);
-    $filmId = $row['FilmId'];
-    $filmIdQuery = "SELECT * FROM Film WHERE FilmId = '$filmId'";
-    $filmIdResult = mysqli_query($conn, $filmIdQuery);
-    $film = mysqli_fetch_array($filmIdResult);
+    $filmInfoJsonStr = $_POST['FilmInfoJsonStr'];
+    $filmInfo = json_decode($filmInfoJsonStr, true);
 
-    $houseId = $row["HouseId"];
-    $filmName = $film["FilmName"];
-    $category = $film["Category"];
-    $showTime = $row["Dates"]." (".$row["day"].") ".$row["Time"];
-    $filmInfo = Array('HouseId'=>$houseId, 'FilmName'=>$filmName, 'Category'=>$category, 'ShowTime'=>$showTime);
-    $filmInfoJsonStr = json_encode((object)$filmInfo);
+
+    $houseId = $filmInfo['HouseId'];
+    $filmName = $filmInfo['FilmName'];
+    $category = $filmInfo['Category'];
+    $showTime = $filmInfo['ShowTime'];
+    $broadCastId = $filmInfo['BroadCastId'];
 
     print("<h1>Ticketing</h1>");
     print("<table><tr><td>Cinema: </td><td>US</td></tr>");
@@ -35,7 +23,7 @@ if(isset($_SESSION["username"])){
     print("<tr><td>Category: </td><td>$category</td></tr>");
     print("<tr><td>Show Time: </td><td>$showTime</td></tr></table>");
 
-    $unavailSeatsQuery = "SELECT SeatNo FROM Ticket WHERE Valid = true";
+    $unavailSeatsQuery = "SELECT SeatNo FROM Ticket WHERE BroadCastId = '$broadCastId'";
     $unavailSeatsResult = mysqli_query($conn, $unavailSeatsQuery);
     $unavailSeats = mysqli_fetch_all($unavailSeatsResult);
     $unavailSeatsNum = count($unavailSeats);
@@ -78,7 +66,7 @@ if(isset($_SESSION["username"])){
     print("</form>");
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 

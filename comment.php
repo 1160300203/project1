@@ -2,12 +2,6 @@
 <link rel="stylesheet" type="text/css" href="comment_style.css">
 
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-4
- * Time: 下午6:18
- */
 
 session_start();
 if(isset($_SESSION["username"])){
@@ -16,21 +10,17 @@ if(isset($_SESSION["username"])){
     print("<a href='history.php'> Purchase History </a>");
     print("<a href='logout.php'> Logout </a>");
 
-    $conn = mysqli_connect("sophia.cs.hku.hk", "xlai", "255511", "xlai")
-    or die("MySQL connect error! " . mysqli_connect_error());
+    $conn = mysqli_connect($_SESSION["db_host"], $_SESSION["db_user"], $_SESSION["db_password"], $_SESSION["db_name"])
+        or die("MySQL connect error! " . mysqli_connect_error());
     $username = $_SESSION["username"];
-    $query = "SELECT BroadCastId FROM Ticket WHERE UserId = '$username'";
+    $query = "SELECT Film.Filmid, FilmName FROM HaveWatched JOIN Film ON HaveWatched.filmid = Film.Filmid AND userid = '$username'";
     $result = mysqli_query($conn, $query) or die("MySQL Query Error! ".mysqli_error($conn));
     $filmIds = array();
+    $filmNames = array();
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_array($result)){
-            $broadCastId = $row["BroadCastId"];
-            $broadCastQuery = "SELECT FilmId FROM BroadCast WHERE BroadCastId = $broadCastId";
-            $broadCastResult = mysqli_query($conn, $broadCastQuery) or die("MySQL Query Error! ".mysqli_error($conn));
-            $filmId = mysqli_fetch_row($broadCastResult)[0];
-            if(!in_array($filmId, $filmIds)){
-                $filmIds[] = $filmId;
-            }
+            $filmIds[] = $row['Filmid'];
+            $filmNames[] = $row['FilmName'];
         }
     }
     print("<form method='post' action='comment_submit.php' onsubmit='return validateComment();'>");
@@ -39,21 +29,19 @@ if(isset($_SESSION["username"])){
     for($i=0; $i<$filmIdsNum; $i++){
         $filmId = $filmIds[$i];
         print("<option value=$filmId>");
-        $filmQuery = "SELECT FilmName FROM Film WHERE FilmId = $filmId";
-        $filmResult = mysqli_query($conn, $filmQuery) or die("MySQL Query Error! ".mysqli_error($conn));
-        $filmName = mysqli_fetch_row($filmResult)[0];
+        $filmName = $filmNames[$i];
         print($filmName);
         print("</option>");
     }
     print("</select></p>");
-    print("<textarea name='Comment' cols='80' rows='20' placeholder='Please input comment here' id='Comment'></textarea>");
+    print("<textarea name='Comment' cols='80' rows='20' placeholder='Please input comment here. No More Than 200 Characters.' id='Comment'></textarea>");
     print("<br><input type='button' value='View comment' id='ViewComment'>");
     print("<input type='submit' value='Submit comment'>");
     print("<div id='OthersComments'></div>");
-    print("</form>");
+    print("</br></form>");
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 ?>

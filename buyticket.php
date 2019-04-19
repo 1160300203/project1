@@ -1,12 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="buyticket_style.css">
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-4
- * Time: 上午10:39
- */
 
 session_start();
 if(isset($_SESSION["username"])){
@@ -45,7 +39,7 @@ if(isset($_SESSION["username"])){
 
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 

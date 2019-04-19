@@ -8,13 +8,6 @@
 <body>
 
 <?php
-/**
- * Created by PhpStorm.
- * User: xinlai
- * Date: 18-11-3
- * Time: 下午2:01
- */
-
 session_start();
 if(isset($_SESSION["username"])){
     print("<a href='buywelcome.php'> Buy A Ticket </a>");
@@ -23,7 +16,7 @@ if(isset($_SESSION["username"])){
     print("<a href='logout.php'> Logout </a>");
 }else{
     print("<h1>You have not logged in</h1>");
-    header("refresh:3; url=index.html");
+    header("refresh:3; url=index.php");
     exit;
 }
 
