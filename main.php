@@ -10,6 +10,8 @@
 <?php
 session_start();
 if(isset($_SESSION["username"])){
+    print($_SESSION["username"]);
+
     print("<a href='buywelcome.php'> Buy A Ticket </a>");
     print("<a href='comment.php'> Movie Review </a>");
     print("<a href='history.php'> Purchase History </a>");

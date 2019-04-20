@@ -33,7 +33,7 @@
             $row = $_POST["houserow"];
             $col = $_POST["housecol"];
             $houseQuery = "INSERT INTO House (HouseRow, HouseCol) VALUES ('$row', '$col')";
-            $houseResult = mysqli_query($conn, $filmQuery) or die("MySQL Query Error! ".mysqli_error($conn));
+            $houseResult = mysqli_query($conn, $houseQuery) or die("MySQL Query Error! ".mysqli_error($conn));
         }elseif($_POST['type'] == 'del_film'){
             $filmname = $_POST['filmname'];
             $BroadCastQuery = "DELETE FROM BroadCast WHERE filmid in (SELECT Filmid FROM Film WHERE FilmName = '$filmname')";
@@ -44,6 +44,7 @@
             $filmResult = mysqli_query($conn, $filmQuery) or die("MySQL Query Error! ".mysqli_error($conn));
         }
         header("refresh:3; url=admin.html");
+        exit;
     }
     else{
         print("<h1>You are not administrator</h1>");

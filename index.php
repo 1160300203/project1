@@ -28,6 +28,7 @@
             alert("Please do not leave the fields empty");
             return false
         }
+        return true;
     }
 
 </script>

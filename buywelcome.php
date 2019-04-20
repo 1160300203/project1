@@ -6,7 +6,7 @@ if(isset($_SESSION["username"])) {
 
     $conn = mysqli_connect($_SESSION["db_host"], $_SESSION["db_user"], $_SESSION["db_password"], $_SESSION["db_name"])
         or die("MySQL connect error! " . mysqli_connect_error());
-    $query = "SELECT FilmName, Duration, Category, Language, Director, Date, Time, BroadCast.filmid, Houseid, BroadCastId FROM Film JOIN BroadCast on Film.Filmid = BroadCast.filmid";
+    $query = "SELECT FilmName, Duration, Category, Language, Director, Date, Time, BroadCast.filmid, Houseid, BroadCastId FROM Film JOIN BroadCast ON Film.Filmid = BroadCast.filmid";
     $result = mysqli_query($conn, $query) or die("MySQL Query Error! " . mysqli_error($conn));
 
     if(isset($_POST["SeatsJsonStr"]) && isset($_POST["BroadCastId"]) && isset($_POST["TicketTypesJsonStr"])){
@@ -30,7 +30,13 @@ if(isset($_SESSION["username"])) {
             $ticketQuery = "INSERT INTO Ticket (SeatNo, BroadCastId, userid, TicketType, TicketFee)
                   VALUES (\"$seats[$i]\", $broadCastId, \"$username\", \"$type\", \"$ticketFee\")";
 
-            $ticketResult = mysqli_query($conn, $ticketQuery) or die("MySQL Query Error! ".mysqli_error($conn));
+            $ticketResult = mysqli_query($conn, $ticketQuery);
+
+            if($ticketResult == 0){
+                print("<script>alert(\"Insert Falied\")</script>");
+                header("refresh:3; url=main.php");
+                exit;
+            }
 
             $HaveWatchedCheckQuery = "SELECT * FROM HaveWatched WHERE userid = '$username' and filmid = '$filmId'";
             $HaveWatchedCheckResult = mysqli_query($conn, $HaveWatchedCheckQuery) or die("MySQL Query Error! ".mysqli_error($conn));
@@ -46,6 +52,7 @@ if(isset($_SESSION["username"])) {
     print("<a href='history.php'> Purchase History </a>");
     print("<a href='logout.php'> Logout </a>");
 
+
     if (mysqli_num_rows($result) > 0) {
         $filmid_to_broadcasts = array();
         $films = array();
@@ -58,6 +65,7 @@ if(isset($_SESSION["username"])) {
             $filmid_to_broadcasts[$filmid][] = [$row['Date'],$row['Time'],$row['Houseid'],$row['BroadCastId']];
         }
     }
+
     $i = 0;
     foreach($filmid_to_broadcasts as $key => $value){
         $row = $films[$i];
@@ -86,6 +94,7 @@ if(isset($_SESSION["username"])) {
             print("</select><input type='submit' value='Submit'></form>");
         }
         print("<hr>");
+        $i++;
     }
 }else {
     print("<h1>You have not logged in</h1>");
