@@ -128,7 +128,7 @@ CREATE TABLE `HaveWatched` (
 
 LOCK TABLES `HaveWatched` WRITE;
 /*!40000 ALTER TABLE `HaveWatched` DISABLE KEYS */;
-INSERT INTO `HaveWatched` VALUES (123,1),(123,2);
+INSERT INTO `HaveWatched` VALUES (123,1),(123,2),(0,1),(1234,1);
 /*!40000 ALTER TABLE `HaveWatched` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +144,7 @@ CREATE TABLE `House` (
   `HouseRow` int(11) NOT NULL,
   `HouseCol` int(11) NOT NULL,
   PRIMARY KEY (`Houseid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `House` (
 
 LOCK TABLES `House` WRITE;
 /*!40000 ALTER TABLE `House` DISABLE KEYS */;
-INSERT INTO `House` VALUES (1,10,10),(2,10,10),(3,10,10);
+INSERT INTO `House` VALUES (1,10,10),(2,10,10),(3,10,10),(4,9,9),(5,9,9);
 /*!40000 ALTER TABLE `House` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,11 +172,12 @@ CREATE TABLE `Ticket` (
   `userid` int(11) NOT NULL,
   `BroadCastId` int(11) NOT NULL,
   PRIMARY KEY (`Ticketid`),
+  UNIQUE KEY `uidx` (`SeatNo`,`BroadCastId`),
   KEY `userid` (`userid`),
   KEY `BroadCastId` (`BroadCastId`),
   CONSTRAINT `Ticket_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `User` (`userid`),
   CONSTRAINT `Ticket_ibfk_2` FOREIGN KEY (`BroadCastId`) REFERENCES `BroadCast` (`BroadCastId`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +186,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (3,'A1',0,75,123,1),(5,'A2',0,75,123,1),(6,'A3',0,75,123,1),(7,'B4',0,75,123,1),(8,'B5',1,50,123,1),(9,'B3',0,75,123,1),(10,'E5',0,75,123,1),(11,'C2',0,75,123,1),(12,'H7',0,75,123,1),(13,'H6',0,75,123,1),(14,'J7',0,75,123,2),(15,'I6',0,75,123,2),(16,'J8',0,75,123,3),(17,'I7',0,75,123,3),(18,'H7',0,75,123,3),(19,'F4',1,50,123,1),(20,'G7',0,75,123,4);
+INSERT INTO `Ticket` VALUES (3,'A1',0,75,123,1),(5,'A2',0,75,123,1),(6,'A3',0,75,123,1),(7,'B4',0,75,123,1),(8,'B5',1,50,123,1),(9,'B3',0,75,123,1),(10,'E5',0,75,123,1),(11,'C2',0,75,123,1),(12,'H7',0,75,123,1),(13,'H6',0,75,123,1),(14,'J7',0,75,123,2),(15,'I6',0,75,123,2),(16,'J8',0,75,123,3),(17,'I7',0,75,123,3),(18,'H7',0,75,123,3),(19,'F4',1,50,123,1),(20,'G7',0,75,123,4),(21,'E4',0,75,0,2),(22,'E8',0,75,123,1),(23,'E7',0,75,123,1),(24,'H8',0,75,1234,1),(26,'C7',0,75,123,1),(27,'J7',0,75,1234,1),(29,'J10',0,75,1234,1);
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +210,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (123,'12345a');
+INSERT INTO `User` VALUES (0,'12345a'),(123,'12345a'),(1234,'12345a');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -222,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-19 22:45:34
+-- Dump completed on 2019-04-22  0:07:21
